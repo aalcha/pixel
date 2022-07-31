@@ -58,8 +58,5 @@ public:
 
 };
 
-int main()
-{
-	Image* img = new Image(1080,720,Blue); 
-}
+
 	
