@@ -1,30 +1,23 @@
 #include<iostream>
 
-struct Pixel
-{
-public:
-	float r;
-	float g;
-	float b;
-public:
-	Pixel():r(0),g(0),b(0) {}
-	Pixel(float color): r(color),g(color),b(color){}
-	Pixel(float red, float green, float blue):r(red),g(green),b(blue){}
-	Pixel& operator = (const Pixel& pixel)
-	{
-		return *this;
-	}
-	static const Pixel Black, White, Red, Green, Blue;
-};
-
-	const Pixel& Black = Pixel(0);
-	const Pixel& White = Pixel(1);
-	const Pixel& Red = Pixel(1,0,0);
-	const Pixel& Green = Pixel(0,1,0);
-	const Pixel& Blue = Pixel(0,0,1);
-
 class Image
 {
+	public:
+	struct Pixel
+	{
+	public:
+		float r;
+		float g;
+		float b;
+	public:
+		Pixel():r(0),g(0),b(0) {}
+		Pixel(float color): r(color),g(color),b(color){}
+		Pixel(float red, float green, float blue):r(red),g(green),b(blue){}
+		Pixel& operator = (const Pixel& pixel)
+		{
+			return *this;
+		}
+	};
 public:
 	unsigned int width;
 	unsigned int height;
@@ -39,7 +32,7 @@ public:
 		pixel = new Pixel(width*height);
 		for(int i=0; i<width*height;i++)
 		{
-			pixel[i] = Pixel::Black;
+			pixel[i] = Image::Black;
 		}
 	}
 	Image(const unsigned int& width, const unsigned int& height, const Pixel& color):
@@ -55,8 +48,12 @@ public:
 	{
 		delete[] pixel;
 	}
-
+	static const Pixel Black, White, Red, Green, Blue;
 };
 
-
+const Image::Pixel Image::Black = Image::Pixel(0);
+const Image::Pixel Image::White = Image::Pixel(1);
+const Image::Pixel Image::Red = Image::Pixel(1,0,0);
+const Image::Pixel Image::Green = Image::Pixel(0,1,0);
+const Image::Pixel Image::Blue = Image::Pixel(0,0,1);
 	

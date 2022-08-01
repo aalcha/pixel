@@ -3,12 +3,12 @@
 
 #include "image.cpp"
 //PPM image format
-Image readPPM(const char* filename)
+Image* readPPM(const char* filename)
 {
     std::ifstream ifs;
     ifs.open(filename, std::ios::binary);
 
-    Image src;
+    Image* src;
     try{
         if(ifs.fail())
         {
@@ -16,21 +16,22 @@ Image readPPM(const char* filename)
         }
     std::string header;
     int w,h,b;
-    if(strcmp(header.c_str(),"P6")!=0)
-        throw("Can't read input file");
+    ifs>>header;
+   /* if(strcmp(header.c_str(),"P6")!=0)
+        throw("Can't read input file");*/
 
     ifs>>w>>h>>b;
-    src.width = w;
-    src.height = h;
-    src.pixel = new Pixel[w*h];
+    src->width = w;
+    src->height = h;
+    src->pixel = new Image::Pixel[w*h];
     ifs.ignore(256, '\n');
     unsigned char pix[3];
     for(int i=0; i<w*h; i++)
     {
         ifs.read(reinterpret_cast<char*>(pix),3);
-        src.pixel[i].r = pix[0]/255.f;
-        src.pixel[i].g = pix[0]/255.f;
-        src.pixel[i].b = pix[0]/255.f;
+        src->pixel[i].r = pix[0]/255.f;
+        src->pixel[i].g = pix[0]/255.f;
+        src->pixel[i].b = pix[0]/255.f;
     }
 
     }
@@ -76,6 +77,6 @@ void savePPM(const Image& img, const char* filename)
 
 int main()
 {
-    Image dst {readPPM("Sample.txt")};
+    Image* dst = readPPM("C:\\Users\\bhand\\Pixel\\pixel\\src\\circle.ppm");
     return 0;
 }
