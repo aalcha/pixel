@@ -29,7 +29,7 @@ public:
 	unsigned int width;
 	unsigned int height;
 	Pixel* pixel;
-public:
+public: 
 	Image():width(0),height(0)
 	{
 		pixel = nullptr;
